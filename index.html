@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BDFD Code Editor</title>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
     <style>
         body {
             background-color: #1a1a1a;
@@ -43,7 +46,6 @@
     </div>
 
     <script>
-        // List of functions for autocompletion
         var wordList = [
             "$addButton", "$addCmdReactions", "$addEmoji", "$addField", "$addMessageReactions", "$addReactions",
             "$addSelectMenuOption", "$addTextInput", "$addTimestamp", "$addTimestamp[]", "$allMembersCount",
@@ -106,25 +108,24 @@
             "$sendNotification"
         ];
 
-        // Get the textarea element
-        var editor = document.getElementById("codeEditor");
+        var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
+            mode: "javascript",
+            lineNumbers: true,
+            theme: "darcula"
+        });
 
-        // Attach an input event listener to the textarea
-        editor.addEventListener("input", function () {
-            var cursorPos = editor.selectionStart; // Get the current cursor position
-            var textBeforeCursor = editor.value.substring(0, cursorPos); // Get the text before the cursor
+        editor.on("change", function (cm, change) {
+            var cursor = cm.getCursor();
+            var token = cm.getTokenAt(cursor);
+            var start = { line: cursor.line, ch: token.start };
+            var end = { line: cursor.line, ch: token.end };
+            var word = cm.getRange(start, end);
 
-            // Find the last word before the cursor
-            var lastWord = textBeforeCursor.split(/\s+/).pop();
-
-            // Check if the last word is a known function, if yes, suggest autocompletion
-            if (wordList.includes(lastWord)) {
-                var suggestedText = lastWord.substring(editor.selectionStart - lastWord.length); // Get the substring to be replaced
-                editor.setRangeText("$" + suggestedText, cursorPos - lastWord.length, cursorPos); // Replace the text
+            if (wordList.includes(word)) {
+                cm.replaceRange("$" + word, start, end);
             }
         });
     </script>
 
 </body>
 </html>
-
