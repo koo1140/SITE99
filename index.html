@@ -35,6 +35,31 @@
             border-radius: 5px;
             font-family: 'Courier New', monospace;
             resize: none;
+            position: relative;
+        }
+
+        #suggestionBox {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80%;
+            background-color: #333;
+            padding: 5px;
+            display: none;
+        }
+
+        #suggestionList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .suggestionItem {
+            cursor: pointer;
+            padding: 5px;
+            color: #fff;
         }
     </style>
 </head>
@@ -43,6 +68,9 @@
     <div id="editorContainer">
         <h1>BDFD Code Editor</h1>
         <textarea id="codeEditor" placeholder="Start typing your code..."></textarea>
+        <div id="suggestionBox">
+            <ul id="suggestionList"></ul>
+        </div>
     </div>
 
     <script>
@@ -114,6 +142,9 @@
             theme: "darcula"
         });
 
+        var suggestionBox = document.getElementById("suggestionBox");
+        var suggestionList = document.getElementById("suggestionList");
+
         editor.on("change", function (cm, change) {
             var cursor = cm.getCursor();
             var token = cm.getTokenAt(cursor);
@@ -121,10 +152,40 @@
             var end = { line: cursor.line, ch: token.end };
             var word = cm.getRange(start, end);
 
-            if (wordList.includes(word)) {
-                cm.replaceRange("$" + word, start, end);
+            if (word.length > 0) {
+                var suggestions = wordList.filter(function (item) {
+                    return item.startsWith(word);
+                });
+
+                if (suggestions.length > 0) {
+                    showSuggestions(suggestions);
+                } else {
+                    hideSuggestions();
+                }
+            } else {
+                hideSuggestions();
             }
         });
+
+        function showSuggestions(suggestions) {
+            suggestionList.innerHTML = "";
+            suggestions.forEach(function (item) {
+                var li = document.createElement("li");
+                li.classList.add("suggestionItem");
+                li.textContent = item;
+                li.addEventListener("click", function () {
+                    editor.replaceRange("$" + item, start, end);
+                    hideSuggestions();
+                });
+                suggestionList.appendChild(li);
+            });
+
+            suggestionBox.style.display = "block";
+        }
+
+        function hideSuggestions() {
+            suggestionBox.style.display = "none";
+        }
     </script>
 
 </body>
