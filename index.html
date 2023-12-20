@@ -38,34 +38,74 @@
     </div>
 
     <script>
+        // List of functions for autocompletion
+        var wordList = [
+            "addButton", "addCmdReactions", "addEmoji", "addField", "addMessageReactions", "addReactions",
+            "addSelectMenuOption", "addTextInput", "addTimestamp", "addTimestamp[]", "allMembersCount",
+            "allowMention", "allowRoleMentions", "allowUserMentions", "alternativeParsing", "and",
+            "argCount", "argsCheck", "author", "authorAvatar", "authorIcon", "authorID", "authorOfMessage",
+            "authorURL", "awaitFunc", "ban", "ban[]", "banID", "banID[]", "blackListIDs", "blackListRoles",
+            "blackListRolesIDs", "blackListServers", "blackListUsers", "boostCount", "boostCount[]",
+            "botCommands", "botID", "botLeave", "botLeave[]", "botListDescription", "botListHide",
+            "botNode", "botOwnerID", "botTyping", "c", "calculate", "categoryChannels", "categoryCount",
+            "categoryCount[]", "categoryID", "changeCooldownTime", "changeUsername", "changeUsernameWithID",
+            "channelCount", "channelExists", "channelID", "channelID[]", "channelIDFromName", "channelName",
+            "channelNames", "channelPosition", "channelPosition[]", "channelSendMessage", "channelTopic",
+            "channelTopic[]", "channelType", "charCount", "checkCondition", "checkContains", "checkUserPerms",
+            "clear", "clear[]", "clearReactions", "closeTicket", "color", "colorRole", "commandsCount",
+            "cooldown", "createChannel", "createRole", "creationDate", "cropText", "customEmoji", "customID",
+            "date", "day", "defer", "deleteChannels", "deleteChannelsByName", "deletecommand", "deleteIn",
+            "deleteMessage", "deleteRole", "description", "disableInnerSpaceRemoval", "disableSpecialEscaping",
+            "discriminator", "displayName", "displayName[]", "divide", "dm", "dm[]", "dmChannelID", "editButton",
+            "editChannelPerms", "editEmbedIn", "editIn", "editMessage", "editSelectMenu", "editSelectMenuOption",
+            "editSplitText", "editThread", "else", "elseif", "embeddedURL", "embedSuppressErrors", "emoteCount",
+            "enabled", "enableDecimals", "endif", "ephemeral", "eval", "executionTime", "findChannel", "findRole",
+            "findUser", "footer", "footerIcon", "getBanReason", "getBotInvite", "getChannelVar", "getCooldown",
+            "getCustomStatus", "getEmbedData", "getInviteInfo", "getLeaderboardValue", "getMessage",
+            "getReactions", "getRoleColor", "getServerInvite", "getServerInvite[]", "getServerVar",
+            "getTextSplitIndex", "getTextSplitLength", "getTimestamp", "getTimestamp[]", "getUserStatus",
+            "getUserVar", "getVar", "giveRole", "globalCooldown", "globalUserLeaderboard", "guildExists",
+            "guildID", "guildID[]", "hasRole", "highestRole", "highestRole[]", "highestRoleWithPerms",
+            "hostingExpireTime", "hostingExpireTime[]", "hour", "hypesquad", "if", "ignoreChannels", "ignoreLinks",
+            "image", "input", "isAdmin", "isBanned", "isBoolean", "isBot", "isHoisted", "isMentionable", "isNSFW",
+            "isNumber", "isSlash", "isTicket", "isTimedOut", "isUserDMEnabled", "isValidHex", "joinSplitText", "kick",
+            "kick[]", "kickMention", "lowestRole", "lowestRole[]", "lowestRoleWithPerms", "max", "membersCount",
+            "membersCount[]", "mentioned", "mentionedChannels", "mentionedRoles", "message", "message[]",
+            "messageID", "min", "minute", "modifyChannel", "modifyChannelPerms", "modifyRole", "modifyRolePerms",
+            "modulo", "month", "multi", "mute", "newModal", "newSelectMenu", "newTicket", "nickname", "nickname[]",
+            "nomention", "noMentionMessage", "noMentionMessage[]", "nodeVersion", "nodeVersion[]", "numberSeparator",
+            "onlyAdmin", "onlyBotChannelPerms", "onlyBotPerms", "onlyForCategories", "onlyForChannels", "onlyForIDs",
+            "onlyForRoles", "onlyForRoleIDs", "onlyForServers", "onlyForUsers", "onlyIf", "onlyIfMessageContains",
+            "onlyNSFW", "onlyPerms", "optOff", "or", "parentID", "parentID[]", "ping", "pinMessage", "pinMessage[]",
+            "premiumExpireTime", "publishMessage", "random", "random[]", "randomCategoryID", "randomChannelID",
+            "randomGuildID", "randomMention", "randomRoleID", "randomString", "randomText", "randomUser", "randomUserID",
+            "registerGuildCommands", "registerGuildCommands[]", "removeAllComponents", "removeAllComponents[]",
+            "removeButtons", "removeButtons[]", "removeComponent", "removeContains", "removeEmoji", "removeLinks",
+            "removeLinks[]", "removeSplitTextElement", "repeatMessage", "replaceText", "repliedMessageID",
+            "repliedMessageID[]", "reply", "reply[]", "replyIn", "resetChannelVar", "resetServerVar", "resetUserVar",
+            "roleCount", "roleExists", "roleGrant", "roleID", "roleInfo", "roleName", "roleNames", "rolePosition",
+            "round", "scriptLanguage", "second", "sendEmbedMessage", "sendMessage", "serverChannelExists", "serverCooldown",
+            "serverCount", "serverDescription", "serverDescription[]", "serverEmojis", "serverIcon", "serverIcon[]",
+            "serverInfo", "serverLeaderboard", "serverName", "serverNames", "serverNames[]", "serverOwner", "serverOwner[]",
+            "serverRegion", "serverVerificationLvl", "setChannelVar", "setServerVar", "setUserVar", "setVar", "shardID",
+            "shardID[]", "slashCommandsCount", "slashID", "slashID[]", "slowmode", "sort", "splitText", "startThread",
+            "sub", "sum", "suppressErrors", "suppressErrors[]", "takeRole", "textSplit", "threadAddMember", "threadRemoveMember",
+            "thumbnail", "time", "timeout", "title", "toLowercase", "toTitleCase", "toUppercase", "trimContent", "trimSpace",
+            "tts", "unban", "unbanID", "unbanID[]", "unescape", "unmute", "unpinMessage", "unregisterGuildCommands",
+            "unregisterGuildCommands[]", "untimeout", "uptime", "url", "useChannel", "userAvatar", "userBadges", "userBanner",
+            "userBannerColor", "userExists", "userID", "userInfo", "userJoined", "userJoinedDiscord", "userLeaderboard",
+            "username", "username[]", "userPerms", "userReacted", "userRoles", "userServerAvatar", "var", "varExistError",
+            "varExists", "variablesCount", "year"
+        ];
+
         // Initialize CodeMirror with autocompletion
         var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
             mode: "javascript",
             theme: "dracula",
             lineNumbers: true,
             extraKeys: { "Ctrl-Space": "autocomplete" },
-            hintOptions: { hint: CodeMirror.hint.javascript, completeSingle: false }
+            hintOptions: { hint: CodeMirror.hint.javascript, completeSingle: false, words: wordList }
         });
-
-        function javascriptHint(editor, options) {
-            var wordList = [
-                'Introduction', '$addButton', '$addCmdReactions', '$addEmoji', '$addField',
-                '$addMessageReactions', '$addReactions', '$addSelectMenuOption', '$addTextInput',
-                '$addTimestamp', '$addTimestamp[]', '$allMembersCount', '$allowMention', '$allowRoleMentions',
-                // ... (Add the remaining functions)
-            ];
-
-            var cur = editor.getCursor();
-            var token = editor.getTokenAt(cur);
-
-            if (/^\w/.test(token.string)) {
-                return {
-                    list: wordList.filter(function (item) {
-                        return item.startsWith(token.string);
-                    })
-                };
-            }
-        }
     </script>
 
 </body>
