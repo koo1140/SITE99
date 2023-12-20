@@ -44,7 +44,7 @@
             theme: "dracula",
             lineNumbers: true,
             extraKeys: { "Ctrl-Space": "autocomplete" },
-            hintOptions: { hint: javascriptHint }
+            hintOptions: { hint: CodeMirror.hint.javascript, completeSingle: false }
         });
 
         function javascriptHint(editor, options) {
