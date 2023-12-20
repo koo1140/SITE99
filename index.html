@@ -115,7 +115,7 @@
             var textBeforeCursor = editor.value.substring(0, cursorPos); // Get the text before the cursor
 
             // Find the last word before the cursor
-            var lastWord = textBeforeCursor.split(" ").pop();
+            var lastWord = textBeforeCursor.split(/\s+/).pop();
 
             // Check if the last word is a known function, if yes, suggest autocompletion
             if (wordList.includes(lastWord)) {
@@ -127,3 +127,4 @@
 
 </body>
 </html>
+
