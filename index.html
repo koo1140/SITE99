@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BDFD Code Editor</title>
-    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-    <script src="codemirror/lib/codemirror.js"></script>
-    <script src="codemirror/mode/javascript/javascript.js"></script>
     <style>
         body {
             background-color: #1a1a1a;
@@ -75,82 +72,19 @@
 
     <script>
         var wordList = [
-            "$addButton", "$addCmdReactions", "$addEmoji", "$addField", "$addMessageReactions", "$addReactions",
-            "$addSelectMenuOption", "$addTextInput", "$addTimestamp", "$addTimestamp[]", "$allMembersCount",
-            "$allowMention", "$allowRoleMentions", "$allowUserMentions", "$alternativeParsing", "$and",
-            "$argCount", "$argsCheck", "$author", "$authorAvatar", "$authorIcon", "$authorID", "$authorOfMessage",
-            "$authorURL", "$awaitFunc", "$ban", "$ban[]", "$banID", "$banID[]", "$blackListIDs", "$blackListRoles",
-            "$blackListRolesIDs", "$blackListServers", "$blackListUsers", "$boostCount", "$boostCount[]",
-            "$botCommands", "$botID", "$botLeave", "$botLeave[]", "$botListDescription", "$botListHide",
-            "$botNode", "$botOwnerID", "$botTyping", "$c", "$calculate", "$categoryChannels", "$categoryCount",
-            "$categoryCount[]", "$categoryID", "$changeCooldownTime", "$changeUsername", "$changeUsernameWithID",
-            "$channelCount", "$channelExists", "$channelID", "$channelID[]", "$channelIDFromName", "$channelName",
-            "$channelNames", "$channelPosition", "$channelPosition[]", "$channelSendMessage", "$channelTopic",
-            "$channelTopic[]", "$channelType", "$charCount", "$checkCondition", "$checkContains", "$checkUserPerms",
-            "$clear", "$clear[]", "$clearReactions", "$closeTicket", "$color", "$colorRole", "$commandsCount",
-            "$cooldown", "$createChannel", "$createRole", "$creationDate", "$cropText", "$customEmoji", "$customID",
-            "$date", "$day", "$defer", "$deleteChannels", "$deleteChannelsByName", "$deletecommand", "$deleteIn",
-            "$deleteMessage", "$deleteRole", "$description", "$disableInnerSpaceRemoval", "$disableSpecialEscaping",
-            "$discriminator", "$displayName", "$displayName[]", "$divide", "$dm", "$dm[]", "$dmChannelID", "$editButton",
-            "$editChannelPerms", "$editEmbedIn", "$editIn", "$editMessage", "$editSelectMenu", "$editSelectMenuOption",
-            "$editSplitText", "$editThread", "$else", "$elseif", "$embeddedURL", "$embedSuppressErrors", "$emoteCount",
-            "$enabled", "$enableDecimals", "$endif", "$ephemeral", "$eval", "$executionTime", "$findChannel", "$findRole",
-            "$findUser", "$footer", "$footerIcon", "$getBanReason", "$getBotInvite", "$getChannelVar", "$getCooldown",
-            "$getCustomStatus", "$getEmbedData", "$getInviteInfo", "$getLeaderboardValue", "$getMessage",
-            "$getReactions", "$getRoleColor", "$getServerInvite", "$getServerInvite[]", "$getServerVar",
-            "$getTextSplitIndex", "$getTextSplitLength", "$getTimestamp", "$getTimestamp[]", "$getUserStatus",
-            "$getUserVar", "$getVar", "$giveRole", "$globalCooldown", "$globalUserLeaderboard", "$guildExists",
-            "$guildID", "$guildID[]", "$hasRole", "$highestRole", "$highestRole[]", "$highestRoleWithPerms",
-            "$hostingExpireTime", "$hostingExpireTime[]", "$hour", "$hypesquad", "$if", "$ignoreChannels", "$ignoreLinks",
-            "$image", "$input", "$isAdmin", "$isBanned", "$isBoolean", "$isBot", "$isHoisted", "$isMentionable", "$isNSFW",
-            "$isNumber", "$isSlash", "$isTicket", "$isTimedOut", "$isUserDMEnabled", "$isValidHex", "$joinSplitText", "$kick",
-            "$kick[]", "$kickMention", "$lowestRole", "$lowestRole[]", "$lowestRoleWithPerms", "$max", "$membersCount",
-            "$membersCount[]", "$mentioned", "$mentionedChannels", "$mentionedRoles", "$message", "$message[]",
-            "$messageID", "$min", "$minute", "$modifyChannel", "$modifyChannelPerms", "$modifyRole", "$modifyRolePerms",
-            "$modulo", "$month", "$multi", "$mute", "$newModal", "$newSelectMenu", "$newTicket", "$nickname", "$nickname[]",
-            "$nomention", "$noMentionMessage", "$noMentionMessage[]", "$nodeVersion", "$nodeVersion[]", "$numberSeparator",
-            "$onlyAdmin", "$onlyBotChannelPerms", "$onlyBotPerms", "$onlyForCategories", "$onlyForChannels", "$onlyForIDs",
-            "$onlyForRoles", "$onlyForRoleIDs", "$onlyForServers", "$onlyForUsers", "$onlyIf", "$onlyIfMessageContains",
-            "$onlyNSFW", "$onlyPerms", "$optOff", "$or", "$parentID", "$parentID[]", "$ping", "$pinMessage", "$pinMessage[]",
-            "$premiumExpireTime", "$publishMessage", "$random", "$random[]", "$randomCategoryID", "$randomChannelID",
-            "$randomGuildID", "$randomMention", "$randomRoleID", "$randomString", "$randomText", "$randomUser", "$randomUserID",
-            "$registerGuildCommands", "$registerGuildCommands[]", "$removeAllComponents", "$removeAllComponents[]",
-            "$removeButtons", "$removeButtons[]", "$removeComponent", "$removeContains", "$removeEmoji", "$removeLinks",
-            "$removeLinks[]", "$removeSplitTextElement", "$repeatMessage", "$replaceText", "$repliedMessageID",
-            "$repliedMessageID[]", "$reply", "$reply[]", "$replyIn", "$resetChannelVar", "$resetServerVar", "$resetUserVar",
-            "$roleCount", "$roleExists", "$roleGrant", "$roleID", "$roleInfo", "$roleName", "$roleNames", "$rolePosition",
-            "$round", "$scriptLanguage", "$second", "$sendEmbedMessage", "$sendMessage", "$serverChannelExists", "$serverCooldown",
-            "$serverCount", "$serverDescription", "$serverDescription[]", "$serverEmojis", "$serverIcon", "$serverIcon[]",
-            "$serverInfo", "$serverLeaderboard", "$serverName", "$serverNames", "$serverNames[]", "$serverOwner", "$serverOwner[]",
-            "$serverRegion", "$serverVerificationLvl", "$setChannelVar", "$setServerVar", "$setUserVar", "$setVar", "$shardID",
-            "$shardID[]", "$slashCommandsCount", "$slashID", "$slashID[]", "$slowmode", "$sort", "$splitText", "$startThread",
-            "$sub", "$sum", "$suppressErrors", "$suppressErrors[]", "$takeRole", "$textSplit", "$threadAddMember", "$threadRemoveMember",
-            "$thumbnail", "$time", "$timeout", "$title", "$toLowercase", "$toTitleCase", "$toUppercase", "$trimContent", "$trimSpace",
-            "$tts", "$unban", "$unbanID", "$unbanID[]", "$unescape", "$unmute", "$unpinMessage", "$unregisterGuildCommands",
-            "$unregisterGuildCommands[]", "$untimeout", "$uptime", "$url", "$useChannel", "$userAvatar", "$userBadges", "$userBanner",
-            "$userBannerColor", "$userExists", "$userID", "$userInfo", "$userJoined", "$userJoinedDiscord", "$userLeaderboard",
-            "$username", "$username[]", "$userPerms", "$userReacted", "$userRoles", "$userServerAvatar", "$var", "$varExistError",
-            "$varExists", "$variablesCount", "$year", "$awaitedCommand", "$awaitedCommandError", "$onJoined", "$onLeave",
-            "$onBanAdd", "$onBanRemove", "$onMessageDelete", "$onInteraction", "$onInteraction[]", "$alwaysReply",
-            "$messageContains", "$reaction", "$awaitReactions", "$customImage", "$usedEmoji", "$ignoreTriggerCase",
-            "$sendNotification"
+            // Your word list here
         ];
-
-        var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
-            mode: "javascript",
-            lineNumbers: true,
-            theme: "darcula"
-        });
 
         var suggestionBox = document.getElementById("suggestionBox");
         var suggestionList = document.getElementById("suggestionList");
+        var codeEditor = document.getElementById("codeEditor");
 
-        editor.on("change", function (cm, change) {
-            var cursor = cm.getCursor();
-            var token = cm.getTokenAt(cursor);
+        codeEditor.addEventListener("input", function (event) {
+            var cursor = { line: 0, ch: 0 };
+            var token = { start: 0, end: 0 };
             var start = { line: cursor.line, ch: token.start };
             var end = { line: cursor.line, ch: token.end };
-            var word = cm.getRange(start, end);
+            var word = codeEditor.value.slice(start.ch, end.ch);
 
             if (word.length > 0) {
                 var suggestions = wordList.filter(function (item) {
@@ -174,7 +108,7 @@
                 li.classList.add("suggestionItem");
                 li.textContent = item;
                 li.addEventListener("click", function () {
-                    editor.replaceRange("$" + item, start, end);
+                    codeEditor.setRangeText("$" + item, start.ch, end.ch, "end");
                     hideSuggestions();
                 });
                 suggestionList.appendChild(li);
